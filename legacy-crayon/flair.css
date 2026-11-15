@@ -1,0 +1,429 @@
+/* flair: the colorful layer */
+
+:root{
+  --blue:#2f6ed6;
+  --red:#f0603e;
+  --yellow:#f3b418;
+  --green:#4f9d55;
+  --purple:#8a5cc4;
+  --pink:#ec6c9d;
+  --teal:#22a79c;
+  --orange:#f18b2c;
+}
+
+/* drifting crayon blobs behind everything */
+.color-field{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  overflow:hidden;
+  pointer-events:none;
+}
+.color-field i{
+  position:absolute;
+  width:52vmax;
+  height:52vmax;
+  opacity:.4;
+  will-change:transform;
+}
+.color-field i:nth-child(1){background:radial-gradient(circle,var(--yellow) 0%,transparent 66%);top:-18vmax;left:-14vmax;animation:blob-a 26s ease-in-out infinite}
+.color-field i:nth-child(2){background:radial-gradient(circle,var(--blue) 0%,transparent 66%);top:18%;right:-20vmax;opacity:.28;animation:blob-b 32s ease-in-out infinite}
+.color-field i:nth-child(3){background:radial-gradient(circle,var(--pink) 0%,transparent 66%);bottom:-20vmax;left:4%;opacity:.32;animation:blob-c 29s ease-in-out infinite}
+.color-field i:nth-child(4){background:radial-gradient(circle,var(--teal) 0%,transparent 66%);bottom:10%;right:6%;width:38vmax;height:38vmax;opacity:.28;animation:blob-d 35s ease-in-out infinite}
+
+@keyframes blob-a{0%,100%{transform:translate(0,0)}33%{transform:translate(11vw,7vh)}66%{transform:translate(5vw,-6vh)}}
+@keyframes blob-b{0%,100%{transform:translate(0,0)}50%{transform:translate(-13vw,10vh)}}
+@keyframes blob-c{0%,100%{transform:translate(0,0)}40%{transform:translate(14vw,-8vh)}75%{transform:translate(-6vw,-4vh)}}
+@keyframes blob-d{0%,100%{transform:translate(0,0)}50%{transform:translate(-10vw,-12vh)}}
+
+/* reading progress: keep the crayons marching */
+.reading-progress{
+  height:5px;
+  background:repeating-linear-gradient(110deg,var(--blue) 0 28px,var(--yellow) 28px 52px,var(--red) 52px 80px,var(--green) 80px 106px,var(--purple) 106px 132px);
+  background-size:264px 100%;
+  animation:crayon-march 6s linear infinite;
+}
+@keyframes crayon-march{to{background-position:264px 0}}
+
+/* headline: gradient sweep, plus a heartbeat on the full stop */
+h1 .blue,h2 .blue{
+  background:linear-gradient(100deg,var(--blue),var(--purple),var(--pink),var(--orange),var(--teal),var(--blue));
+  background-size:300% 100%;
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  -webkit-text-fill-color:transparent;
+  animation:hue-slide 9s linear infinite;
+}
+@keyframes hue-slide{to{background-position:300% 0}}
+
+h1 .red{display:inline-block;transform-origin:bottom center;animation:dot-pop 2.6s ease-in-out infinite}
+@keyframes dot-pop{0%,72%,100%{transform:scale(1)}80%{transform:scale(1.5) translateY(-2px)}88%{transform:scale(.9)}}
+
+/* headline words rise in, one after another */
+.hero h1 .word{display:inline-block;animation:word-rise .7s cubic-bezier(.2,.7,.3,1) both}
+@keyframes word-rise{from{opacity:0;transform:translateY(22px) rotate(-4deg)}to{opacity:1;transform:none}}
+
+/* stars and sparkles */
+.tiny-star,.contact-star,.divider-star{animation:star-turn 14s linear infinite,star-hue 7s ease-in-out infinite}
+.divider-star{display:inline-block}
+@keyframes star-hue{
+  0%,100%{color:var(--yellow)}
+  25%{color:var(--pink)}
+  50%{color:var(--teal)}
+  75%{color:var(--orange)}
+}
+
+.sparkles{position:absolute;inset:0;pointer-events:none}
+.sparkles b{
+  position:absolute;
+  font:18px var(--marker);
+  opacity:0;
+  animation:sparkle 4.5s ease-in-out infinite;
+}
+.sparkles b:nth-child(1){left:6%;top:18%;color:var(--pink);animation-delay:0s}
+.sparkles b:nth-child(2){right:8%;top:9%;color:var(--teal);animation-delay:.9s}
+.sparkles b:nth-child(3){left:14%;bottom:22%;color:var(--purple);animation-delay:1.8s}
+.sparkles b:nth-child(4){right:16%;bottom:14%;color:var(--orange);animation-delay:2.7s}
+.sparkles b:nth-child(5){right:34%;top:2%;color:var(--blue);animation-delay:3.6s}
+@keyframes sparkle{
+  0%,100%{opacity:0;transform:scale(.4) rotate(-25deg)}
+  15%{opacity:1;transform:scale(1.15) rotate(10deg)}
+  35%{opacity:0;transform:scale(.6) rotate(35deg)}
+}
+
+.doodle{will-change:transform}
+
+/* nav: every link picks its own crayon */
+nav a{position:relative;transition:color .2s}
+nav a:not(.nav-contact):after{
+  content:'';
+  position:absolute;
+  left:0;right:0;bottom:-4px;
+  height:3px;
+  border-radius:3px;
+  background:currentColor;
+  transform:scaleX(0);
+  transform-origin:right;
+  transition:transform .28s cubic-bezier(.2,.7,.3,1);
+}
+nav a:not(.nav-contact):hover:after{transform:scaleX(1);transform-origin:left}
+nav a:nth-of-type(1):hover{color:var(--pink)}
+nav a:nth-of-type(2):hover{color:var(--teal)}
+nav a:nth-of-type(3):hover{color:var(--purple)}
+.nav-contact{transition:transform .25s,background .25s,color .25s,border-color .25s}
+.nav-contact:hover{background:var(--yellow);border-color:#b4881a;transform:rotate(2deg) translateY(-2px)}
+
+/* buttons get a shine and a colored shadow */
+.button{position:relative;overflow:hidden;box-shadow:4px 4px 0 var(--yellow);transition:transform .2s,box-shadow .2s}
+.button:hover{box-shadow:7px 7px 0 var(--pink);transform:rotate(1deg) translateY(-3px)}
+.button:active{transform:rotate(0deg) translateY(1px);box-shadow:2px 2px 0 var(--pink)}
+.button:before{
+  content:'';
+  position:absolute;
+  top:0;bottom:0;left:0;
+  width:45%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.42),transparent);
+  animation:shine 4.5s ease-in-out infinite;
+}
+@keyframes shine{0%,55%{transform:translateX(-160%) skewX(-18deg)}85%,100%{transform:translateX(300%) skewX(-18deg)}}
+
+/* the marquee ribbon */
+.marquee{
+  position:relative;
+  overflow:hidden;
+  margin:34px auto 6px;
+  padding:11px 0;
+  border-top:2px solid #2a3340;
+  border-bottom:2px solid #2a3340;
+  background:linear-gradient(90deg,var(--yellow),var(--orange),var(--pink),var(--purple),var(--blue),var(--teal),var(--green),var(--yellow));
+  background-size:300% 100%;
+  animation:hue-slide 14s linear infinite;
+  transform:rotate(-1deg);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+}
+.marquee-track{
+  display:flex;
+  width:max-content;
+  white-space:nowrap;
+  animation:marquee 26s linear infinite;
+  font:20px var(--hand);
+  color:#1f2833;
+}
+.marquee-track span{display:flex;align-items:center;gap:30px;padding-right:30px}
+.marquee-track i{font-style:normal;opacity:.55}
+@keyframes marquee{to{transform:translateX(-50%)}}
+
+/* section headings get a highlighter swipe */
+.section-heading h2,.about-copy h2{position:relative;display:table;isolation:isolate}
+.section-heading h2:before,.about-copy h2:before{
+  content:'';
+  position:absolute;
+  left:-6px;right:-6px;
+  bottom:2px;
+  height:38%;
+  background:var(--yellow);
+  opacity:.3;
+  border-radius:3px;
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform .8s cubic-bezier(.2,.7,.3,1) .25s;
+  z-index:-1;
+}
+.section-heading.is-visible h2:before,.about-copy.is-visible h2:before{transform:scaleX(1)}
+.about-copy h2:before{background:var(--teal)}
+
+/* project cards: tilt, colored glow, shimmering visuals */
+.projects{perspective:1100px}
+.project-visual{
+  transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(var(--lift,0px));
+  transition:transform .35s cubic-bezier(.2,.7,.3,1),box-shadow .35s ease;
+  box-shadow:5px 6px 0 rgba(0,0,0,.06);
+  overflow:hidden;
+}
+.project:hover .project-visual,.project:focus-visible .project-visual{--lift:-8px;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(var(--lift))}
+.project:nth-child(1):hover .project-visual{box-shadow:10px 12px 0 var(--orange)}
+.project:nth-child(2):hover .project-visual{box-shadow:10px 12px 0 var(--green)}
+.project:nth-child(3):hover .project-visual{box-shadow:10px 12px 0 var(--purple)}
+.project-visual:after{
+  content:'';
+  position:absolute;
+  inset:-40%;
+  background:linear-gradient(115deg,transparent 42%,rgba(255,255,255,.55) 50%,transparent 58%);
+  transform:translateX(-70%);
+  transition:transform .9s ease;
+  pointer-events:none;
+}
+.project:hover .project-visual:after{transform:translateX(70%)}
+.peach{background:linear-gradient(150deg,#ffd9b8,#f5b4a0)}
+.green{background:linear-gradient(150deg,#d8efc6,#b1d5b8)}
+.lavender{background:linear-gradient(150deg,#e7dcfc,#c7c0ee)}
+.mini-app{transition:scale .4s cubic-bezier(.2,.7,.3,1)}
+.project:hover .mini-app{scale:1.05}
+.project>h3{transition:color .25s}
+.project:nth-child(1):hover>h3{color:#d5711d}
+.project:nth-child(2):hover>h3{color:var(--green)}
+.project:nth-child(3):hover>h3{color:var(--purple)}
+.tags span{transition:transform .2s,background .2s,border-color .2s}
+.project:hover .tags span:nth-child(1){background:#fdf0d8;border-color:var(--yellow);transform:rotate(-2deg)}
+.project:hover .tags span:nth-child(2){background:#e0f2ee;border-color:var(--teal);transform:rotate(2deg)}
+.project:hover .tags span:nth-child(3){background:#f9e8f0;border-color:var(--pink);transform:rotate(-1deg)}
+.project:hover .visit-project{animation:arrow-nudge .8s ease infinite}
+
+/* about sticker: it sways, and it draws itself */
+.about-sticker{
+  background:linear-gradient(145deg,#ffdf6d,#f4b93f);
+  animation:sticker-sway 7s ease-in-out infinite;
+  transition:transform .3s;
+  cursor:pointer;
+}
+.about-sticker:hover{animation-play-state:paused;transform:rotate(-1deg) scale(1.04)}
+@keyframes sticker-sway{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(-2.5deg) translateY(-5px)}}
+.about-sticker strong{
+  background:linear-gradient(90deg,#2f3a46,var(--red),var(--purple),#2f3a46);
+  background-size:300% 100%;
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  -webkit-text-fill-color:transparent;
+  animation:hue-slide 8s linear infinite;
+}
+.about-sticker svg path{stroke-dasharray:260;stroke-dashoffset:260;animation:draw-line 1.4s ease .4s forwards}
+
+/* available badge: a live pulse */
+.available span{animation:live-pulse 2s ease-in-out infinite}
+@keyframes live-pulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(101,130,89,.6);transform:scale(1)}
+  60%{box-shadow:0 0 0 8px rgba(101,130,89,0);transform:scale(1.25)}
+}
+
+/* a blinking crayon caret after the code note */
+.code-note:after{content:'\258C';margin-left:2px;color:var(--teal);animation:blink 1.1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* dividers keep drawing themselves */
+.divider svg path{stroke-dasharray:5 5;animation:dash-run 2.2s linear infinite}
+@keyframes dash-run{to{stroke-dashoffset:-40}}
+
+/* toolbox: bob, fill, wiggle */
+.tools>div>span{
+  transition:transform .3s cubic-bezier(.2,1.6,.5,1),background .3s,color .3s,box-shadow .3s;
+  animation:tool-bob 6s ease-in-out infinite;
+}
+.tools>div:nth-child(2)>span{animation-delay:.4s}
+.tools>div:nth-child(3)>span{animation-delay:.8s}
+.tools>div:nth-child(4)>span{animation-delay:1.2s}
+.tools>div:nth-child(5)>span{animation-delay:1.6s}
+.tools>div:nth-child(6)>span{animation-delay:2s}
+@keyframes tool-bob{0%,100%{translate:0 0}50%{translate:0 -7px}}
+.tools>div:hover>span{
+  background:var(--color);
+  color:#fff;
+  box-shadow:0 8px 0 rgba(0,0,0,.12);
+  transform:rotate(-8deg) scale(1.14);
+}
+.tools b{transition:color .25s}
+.tools>div:hover b{color:var(--color)}
+
+/* contact: a rainbow glow behind the ask */
+.contact{overflow:hidden;isolation:isolate}
+.contact:before{
+  content:'';
+  position:absolute;
+  left:50%;top:42%;
+  width:520px;height:320px;
+  transform:translate(-50%,-50%);
+  background:radial-gradient(circle,rgba(236,108,157,.22) 0%,rgba(243,180,24,.14) 45%,transparent 70%);
+  pointer-events:none;
+  animation:glow-breathe 8s ease-in-out infinite;
+  z-index:-1;
+}
+@keyframes glow-breathe{
+  0%,100%{opacity:.5;transform:translate(-50%,-50%) scale(1)}
+  50%{opacity:.95;transform:translate(-50%,-50%) scale(1.2)}
+}
+
+/* footer */
+footer>a:last-child{display:inline-block;transition:transform .2s,color .2s}
+footer>a:last-child:hover{color:var(--blue);transform:translateY(-4px)}
+#motion-toggle{transition:background .2s,border-color .2s,color .2s}
+#motion-toggle:hover{background:var(--yellow);border-color:#b4881a;color:#2a3340}
+.logo{transition:transform .25s}
+.logo:hover{transform:rotate(-3deg) scale(1.04)}
+
+
+/* ── the cut: every section is a sheet of paper, snipped away from the one
+   above it and taped back down. Each seam is cut differently — scissors, a
+   hand tear, a curve, pinking shears — but they are all the same paper. ─── */
+.seam{
+  position:relative;
+  padding:34px 0 46px;
+  pointer-events:none;
+}
+.work,.about,.toolbox,.contact,footer{position:relative;z-index:1}
+.seam .sheet{
+  position:absolute;
+  left:0;right:0;
+  top:28px;bottom:0;
+  width:100%;height:auto;
+  z-index:1;
+  filter:drop-shadow(0 -3px 5px rgba(74,60,34,.13));
+  -webkit-mask-image:linear-gradient(180deg,#000 0 42%,transparent 96%);
+  mask-image:linear-gradient(180deg,#000 0 42%,transparent 96%);
+  transition:transform .55s cubic-bezier(.2,.9,.3,1),opacity .4s ease;
+}
+.seam .sheet path{fill:#fffdf5}
+.seams-armed .seam .sheet{transform:translateY(9px);opacity:0}
+.seams-armed .seam.is-stuck .sheet{transform:translateY(0);opacity:1}
+
+/* washi tape, hand-torn and never quite straight */
+.seam .tape{
+  position:absolute;
+  top:2px;
+  left:var(--pos);
+  width:var(--w,120px);
+  height:32px;
+  z-index:3;
+  background:linear-gradient(168deg,rgba(var(--tape),.5),rgba(var(--tape),.28));
+  border-top:1px solid rgba(255,255,255,.55);
+  border-bottom:1px solid rgba(80,64,36,.09);
+  box-shadow:0 2px 5px rgba(74,60,34,.14);
+  clip-path:polygon(3% 2%,100% 0,97% 98%,0 100%);
+  transform:rotate(var(--rot));
+  transition:opacity .3s ease,transform .5s cubic-bezier(.2,1.55,.4,1);
+}
+.seams-armed .seam .tape{opacity:0;transform:translateY(-18px) rotate(var(--rot)) scale(1.14)}
+.seams-armed .seam.is-stuck .tape{opacity:1;transform:translateY(0) rotate(var(--rot)) scale(1)}
+.seam.is-stuck .tape:nth-of-type(2){transition-delay:.11s}
+.seam.is-stuck .tape:nth-of-type(3){transition-delay:.22s}
+
+/* the tape colour carries on from one seam to the next */
+.seam[data-seam="1"]{--tape:243,180,24}
+.seam[data-seam="2"]{--tape:236,108,157}
+.seam[data-seam="3"]{--tape:34,167,156}
+.seam[data-seam="4"]{--tape:47,110,214}
+.seam[data-seam="5"]{--tape:241,139,44}
+
+/* the sheet below tucks up under its cut edge */
+.seam + .work{padding-top:10px}
+.seam + .about{padding-top:26px}
+.seam + .toolbox{padding-top:14px}
+.seam + .contact{padding-top:20px}
+.seam + footer{padding-top:18px}
+
+.motion-paused .seam .sheet,.motion-paused .seam.is-stuck .sheet{opacity:1;transform:none}
+.motion-paused .seam .tape,.motion-paused .seam.is-stuck .tape{opacity:1;transform:rotate(var(--rot))}
+
+.about,.contact,footer{border-color:transparent}
+
+/* crayon cursor trail */
+.trail-layer{position:fixed;inset:0;pointer-events:none;z-index:9;overflow:hidden}
+.trail-dot{
+  position:absolute;
+  width:11px;height:11px;
+  margin:-5.5px 0 0 -5.5px;
+  border-radius:60% 42% 55% 45%;
+  animation:trail-fade .75s ease-out forwards;
+}
+@keyframes trail-fade{
+  from{opacity:.75;transform:scale(1)}
+  to{opacity:0;transform:scale(.2) translateY(10px)}
+}
+
+/* confetti burst */
+.confetti-layer{position:fixed;inset:0;pointer-events:none;z-index:11;overflow:hidden}
+.confetti-bit{
+  position:absolute;
+  width:9px;height:14px;
+  border-radius:2px;
+  animation:confetti-fly var(--dur,1.1s) cubic-bezier(.2,.7,.4,1) forwards;
+}
+@keyframes confetti-fly{
+  from{opacity:1;transform:translate(0,0) rotate(0deg)}
+  to{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(var(--dr))}
+}
+
+/* paused: everything settles */
+.motion-paused .trail-layer,.motion-paused .confetti-layer{display:none}
+.motion-paused .color-field i{animation:none}
+.motion-paused .hero h1 .word{opacity:1;transform:none}
+.motion-paused .section-heading h2:before,.motion-paused .about-copy h2:before{transform:scaleX(1)}
+.motion-paused .about-sticker svg path{stroke-dashoffset:0}
+.motion-paused .project-visual{--rx:0deg;--ry:0deg}
+.motion-paused .doodle{transform:none!important}
+
+@media(prefers-reduced-motion:reduce){
+  .trail-layer,.confetti-layer{display:none}
+  .hero h1 .word{opacity:1;transform:none}
+  .section-heading h2:before,.about-copy h2:before{transform:scaleX(1)}
+  .about-sticker svg path{stroke-dashoffset:0}
+  .seam .sheet,.seam.is-stuck .sheet{opacity:1;transform:none}
+  .seam .tape,.seam.is-stuck .tape{opacity:1;transform:rotate(var(--rot))}
+}
+
+/* gradient-clipped text has no colour of its own in forced-colours mode */
+@media(forced-colors:active){
+  h1 .blue,h2 .blue,.about-sticker strong{
+    background:none;
+    -webkit-text-fill-color:currentColor;
+    color:CanvasText;
+  }
+  .color-field{display:none}
+}
+
+@media(max-width:1000px){
+  .contact:before{width:360px;height:250px}
+}
+@media(max-width:760px){
+  .color-field i{opacity:.3}
+  .color-field i:nth-child(4){display:none}
+  .marquee{margin:26px auto 4px;padding:8px 0}
+  .marquee-track{font-size:17px}
+  .marquee-track span{gap:24px;padding-right:24px}
+  .trail-layer{display:none}
+  .sparkles b{font-size:15px}
+  .seam{padding:30px 0 34px}
+  .seam .tape{height:26px;width:calc(var(--w) * .66)}
+  .seam .sheet{top:24px}
+}

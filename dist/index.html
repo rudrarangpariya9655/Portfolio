@@ -1,23 +1,247 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Rudra's creative developer portfolio. Thoughtful websites, playful experiments, and a little outside-the-lines thinking."><title>Rudra — Developer & creative thinker</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Patrick+Hand&family=Permanent+Marker&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="motion.css"></head>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Rudra is a developer who turns curious ideas into thoughtful digital experiences. Selected work, toolbox, and a way to say hello.">
+<meta name="theme-color" content="#0b0e0d">
+<title>Rudra — Developer</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0e0d'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%23ff5b3a'/%3E%3C/svg%3E">
+<script>
+/* the intro plays once per tab: sessionStorage is empty on a first visit and
+   in every newly opened tab, and survives refreshes within the same tab */
+(function () {
+  var root = document.documentElement;
+  root.classList.add('js');
+  try {
+    var mood = localStorage.getItem('rudra-mood');
+    if (mood) root.dataset.palette = mood;
+  } catch (error) { /* storage blocked: default mood */ }
+  try {
+    if (!sessionStorage.getItem('rudra-intro')) {
+      sessionStorage.setItem('rudra-intro', '1');
+      root.classList.add('loading');
+      setTimeout(function () { if (!window.__introStarted) root.classList.remove('loading'); }, 6000);
+    }
+  } catch (error) { /* storage blocked: skip the intro */ }
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
 <body>
-<div class="reading-progress" aria-hidden="true"></div>
-<svg class="filters" aria-hidden="true"><defs><filter id="crayon"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="3" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="3"/></filter></defs></svg>
-<header class="header wrap"><a class="logo" href="#" aria-label="Rudra home">rudra<span>.</span><svg viewBox="0 0 110 12"><path d="M3 8 Q50 0 105 6"/></svg></a><nav aria-label="Main navigation"><a href="#about">About me</a><a href="#work">My work</a><a href="#toolbox">Toolbox</a><a class="nav-contact" href="#contact">Let's talk <span>↗</span></a></nav></header>
+<div class="loader" aria-hidden="true">
+  <svg class="loader-rings" viewBox="-300 -300 600 600"></svg>
+  <div class="loader-word"><span>r</span><span>u</span><span>d</span><span>r</span><span>a</span><span class="dot">.</span></div>
+  <div class="loader-foot"><span class="loader-note">Charting the terrain</span><span class="loader-count">000</span></div>
+  <div class="loader-bar"><i></i></div>
+</div>
+<a class="skip" href="#work">Skip to work</a>
+
+<header class="top">
+  <div class="top-inner wrap">
+    <a class="logo" href="#top" aria-label="Rudra, back to top">rudra<span>.</span></a>
+    <div class="ctls">
+      <button class="ctl" id="sound-toggle" type="button" aria-pressed="false" title="Sound: move, click and type to play the terrain">
+        <span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="sr">Sound</span>
+      </button>
+      <div class="swatches" role="radiogroup" aria-label="Colour mood">
+        <button class="swatch" type="button" role="radio" aria-checked="true" data-palette="ember" title="Ember" style="--c:#ff5b3a"><span class="sr">Ember</span></button>
+        <button class="swatch" type="button" role="radio" aria-checked="false" data-palette="moss" title="Moss" style="--c:#b9f25c"><span class="sr">Moss</span></button>
+        <button class="swatch" type="button" role="radio" aria-checked="false" data-palette="dusk" title="Dusk" style="--c:#a594ff"><span class="sr">Dusk</span></button>
+      </div>
+    </div>
+    <nav class="nav" aria-label="Main">
+      <a href="#work" data-spy="work">Work</a>
+      <a href="#about" data-spy="about">About</a>
+      <a href="#toolbox" data-spy="toolbox">Toolbox</a>
+      <a class="nav-cta" href="#contact" data-spy="contact">Let’s talk</a>
+    </nav>
+  </div>
+  <div class="progress" aria-hidden="true"><i></i></div>
+</header>
+
 <main>
-<section class="hero wrap" aria-labelledby="hero-title"><div class="hero-copy"><div class="eyebrow"><span class="tiny-star">✳</span> A DEVELOPER WITH A CREATIVE STREAK</div><h1 id="hero-title">Serious about code.<br><span class="blue">Playful</span> about<br>everything else<span class="red">.</span></h1><p>I’m Rudra, a developer who turns curious ideas into<br class="desktop"> thoughtful digital experiences. A little logic.<br class="desktop"> A lot of imagination.</p><a class="button blue-button" href="#work">Explore my work <span>↗</span></a><span class="hero-note">made with curiosity & a little caffeine</span></div>
-<div class="hero-art" aria-label="Hand-drawn laptop with colorful creative doodles" role="img"><span class="art-note">a peek inside my brain</span><svg viewBox="0 0 530 420" class="doodle"><g fill="none" stroke-linecap="round" stroke-linejoin="round" filter="url(#crayon)"><path d="M260 45 Q300 53 302 89 M289 79 l13 13 9-18" stroke="#555044" stroke-width="2"/><g stroke="#dfad28" stroke-width="4"><path d="M411 33 l8 21 23 2-18 14 6 22-19-13-19 13 7-23-18-13 22-1Z" fill="#f5ce51"/><path d="M451 43 l9-9 M450 82 l13 5"/></g><g stroke="#303a42" stroke-width="5"><path d="M114 127 Q108 118 123 117 L371 109 Q384 111 386 122 L401 302 124 310Z" fill="#dce7ed"/><path d="M131 134 L367 127 378 284 143 292Z" fill="#faf8ef"/><path d="M123 310 L83 343 Q78 352 94 355 L417 349 Q430 348 419 337 L401 302Z" fill="#b6c7d5"/><path d="M106 343 L397 336 M219 312 L212 329 286 327 280 311" stroke-width="3"/></g><g stroke-width="8" stroke="#426eaf"><path d="M198 179 l-30 29 31 23 M311 175 l30 26-28 29 M272 167 l-29 75"/></g><path d="M188 261 Q257 252 327 258" stroke="#e9b933" stroke-width="8"/><g stroke="#e36e50" stroke-width="4"><path d="M60 156 Q24 127 34 100 Q45 78 65 102 Q83 73 99 94 Q119 119 60 156Z" fill="#f09b87"/></g><g stroke="#62865c" stroke-width="4"><path d="M430 239 l35-58 12 8-34 59Z" fill="#91b57e"/><path d="M430 239 l-2 20 15-11 M461 188 l11 6"/></g><g stroke="#bd819e" stroke-width="4"><path d="M450 292 Q478 270 484 291 Q490 310 468 315 Q444 322 459 338 Q476 351 494 331"/></g><g stroke="#e1ae27" stroke-width="4"><path d="M74 252 v29 M60 267 h29 M324 373 v24 M313 384 h23"/></g><g stroke="#678b60" stroke-width="3"><path d="M148 60 l-12-21 M166 57 l3-19 M130 75 l-20-6"/></g><path d="M116 380 Q175 363 211 377" stroke="#88806f" stroke-width="2"/></g></svg><span class="code-note">&lt; ideas become real /&gt;</span><div class="available"><span></span> Open to good conversations</div></div></section>
-<div class="divider wrap"><span>IDEAS. CODE. A LITTLE COLOR.</span><svg viewBox="0 0 900 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 7 Q160 1 300 6 T600 6 T898 5"/></svg><span class="divider-star">✳</span></div>
-<section id="work" class="work wrap"><div class="section-heading"><div><span class="eyebrow">01 / SELECTED WORK</span><h2>A few things I’ve <span class="underlined">made<svg viewBox="0 0 170 12"><path d="M2 8 Q83 1 167 5"/></svg></span></h2></div><p>A mix of useful, thoughtful,<br>and “what if we tried this?”</p></div>
-<div class="projects">
-<a class="project" href="https://affex-studio.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Visit Affex Studio (opens in a new tab)"><div class="project-visual peach"><div class="mini-app affex-preview"><div class="preview-nav"><b>affex studio</b><span>WORK &nbsp; STUDIO &nbsp; CONTACT</span></div><small>PHOTOGRAPHY & VIDEOGRAPHY</small><h3>Affex Studio</h3><div class="affex-frames"><span>EDITORIAL</span><span>COMMERCIAL</span><span>CINEMATIC</span></div></div><span class="visual-label">stories worth a thousand frames ↗</span></div><div class="project-meta"><span>CREATIVE STUDIO · PHOTOGRAPHY</span><span>01</span></div><h3>Affex Studio <span>↗</span></h3><p>A cinematic home for photography and visual storytelling.</p><div class="tags"><span>HTML & CSS</span><span>JavaScript</span><span>Studio website</span></div><span class="visit-project">Visit live project ↗</span></a>
-<a class="project" href="https://sepeione-ceramic.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Visit Sepione Ceramic (opens in a new tab)"><div class="project-visual green"><div class="mini-app ceramic-preview"><div class="preview-nav"><b>SEPIONE®</b><span>COLLECTIONS &nbsp; ABOUT</span></div><div class="ceramic-content"><div><small>MATERIAL. TEXTURE. PRESENCE.</small><h3>Made for<br>remarkable<br>spaces.</h3><span>EXPLORE THE COLLECTION ↗</span></div><div class="ceramic-tiles"><i></i><i></i><i></i></div></div></div><span class="visual-label">thoughtful spaces start here ✳</span></div><div class="project-meta"><span>BRAND WEBSITE · CERAMICS</span><span>02</span></div><h3>Sepione Ceramic <span>↗</span></h3><p>A digital showcase for ceramics, textures, and considered spaces.</p><div class="tags"><span>Next.js</span><span>React</span><span>Product catalog</span></div><span class="visit-project">Visit live project ↗</span></a>
-<a class="project" href="https://keyboard3d.netlify.app/" target="_blank" rel="noopener noreferrer" aria-label="Visit Keyboard 3D (opens in a new tab)"><div class="project-visual lavender"><div class="mini-app keyboard-preview"><div class="preview-nav"><b>NZXT MiniTKL</b><span>◇ &nbsp; ⟳</span></div><div class="keyboard-model" aria-hidden="true"><i class="escape-key">ESC</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>0</i><i>⌫</i><i>⇥</i><i>Q</i><i>W</i><i>E</i><i>R</i><i>T</i><i>Y</i><i>U</i><i>I</i><i>O</i><i>P</i><i>↵</i><i>ESC</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>0</i><i>⌫</i><i>⇥</i><i>Q</i><i>W</i><i>E</i><i>R</i><i>T</i><i>Y</i><i>U</i><i>I</i><i>O</i><i>P</i><i>↵</i></div><span class="keyboard-caption">A NEW DIMENSION OF DETAIL.</span></div><span class="visual-label">a little code, a whole new dimension ↗</span></div><div class="project-meta"><span>INTERACTIVE 3D · PRODUCT SHOWCASE</span><span>03</span></div><h3>Keyboard 3D <span>↗</span></h3><p>An interactive keyboard showcase with rotation and an exploded view.</p><div class="tags"><span>Three.js</span><span>WebGL</span><span>JavaScript</span></div><span class="visit-project">Visit live project ↗</span></a>
-</div></section>
-<section id="about" class="about wrap"><div class="about-sticker"><span>HELLO, I'M</span><strong>Rudra!</strong><svg viewBox="0 0 170 100" aria-hidden="true"><path d="M35 35q5-14 13 0M115 35q5-14 13 0M53 65q32 30 65-3" fill="none" stroke="#343b45" stroke-width="5" stroke-linecap="round"/></svg><small>developer. thinker. lifelong tinkerer.</small></div><div class="about-copy"><span class="eyebrow">02 / THE HUMAN BEHIND THE CODE</span><h2>Curiosity is my<br>favorite <span class="blue">tool.</span></h2><p>I like making things that feel good to use. For me, development is equal parts solving a puzzle and filling a blank page.</p><p>My sweet spot? Where clean code meets a thoughtful interface. I’m always learning, experimenting, and finding a better way to bring an idea to life.</p><span class="hand-note">Always a work in progress. And that’s the fun part.</span></div></section>
-<section id="toolbox" class="toolbox wrap"><div class="section-heading"><div><span class="eyebrow">03 / MY TOOLBOX</span><h2>Different tools. Same curiosity.</h2></div><span class="hand-note">my kind of crayon box ↙</span></div><div class="tools"><div><span style="--color:#4478b5">⚛</span><b>React</b><small>Interactive interfaces</small></div><div><span style="--color:#d4a822">JS</span><b>JavaScript</b><small>Ideas into interactions</small></div><div><span style="--color:#487caf">TS</span><b>TypeScript</b><small>A little more confidence</small></div><div><span style="--color:#59804e">N</span><b>Node.js</b><small>Behind the scenes</small></div><div><span style="--color:#c1694f">&lt;/&gt;</span><b>HTML & CSS</b><small>The trusty essentials</small></div><div><span style="--color:#9574aa">✥</span><b>Figma</b><small>Room to explore</small></div></div></section>
-<section id="contact" class="contact wrap"><span class="contact-star">✳</span><span class="eyebrow">04 / SAY HELLO</span><h2>Got an idea?<br>Let’s <span class="blue">color it in.</span></h2><p>A project, a possibility, or just a good conversation.<br>I’d love to hear what you’re thinking.</p><a class="button blue-button" href="mailto:hello@example.com">Say hello <span>↗</span></a><span class="hand-note">Good things start with a hello.</span></section>
-</main><footer class="wrap"><a class="logo" href="#">rudra<span>.</span></a><span>Made with intention. Colored outside the lines.</span><div class="footer-actions"><button id="motion-toggle" type="button" aria-pressed="false">Pause motion Ⅱ</button><a href="#">Back to top ↑</a></div></footer>
-<script src="motion.js"></script>
-</body></html>
+  <!-- ─────────── hero ─────────── -->
+  <section class="hero" id="top" aria-labelledby="hero-title">
+    <canvas class="contours" data-contours aria-hidden="true"></canvas>
+    <div class="hero-inner wrap">
+      <p class="status"><i aria-hidden="true"></i>Open to good conversations</p>
+      <h1 id="hero-title">
+        <span class="line"><span>Serious about code.</span></span>
+        <span class="line"><span><em>Playful</em> about</span></span>
+        <span class="line"><span>everything else.</span></span>
+      </h1>
+      <div class="hero-row">
+        <p class="lede">I’m Rudra, a developer who turns curious ideas into thoughtful digital experiences. A little logic. A lot of imagination.</p>
+        <div class="actions">
+          <a class="btn primary" href="#work">Explore my work <span class="arr" aria-hidden="true">↓</span></a>
+          <a class="btn ghost" href="#contact">Say hello</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-foot wrap" aria-hidden="true">
+      <span class="hint">Move, click or type. The terrain plays along.</span>
+      <span class="readout" data-readout>X 0000 · Y 0000 · ELEV +0.00</span>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true" data-cursor="Drag ↔">
+    <div class="marquee-track"><span><b>Curious by default</b><i>✦</i><em>Clean code, loud ideas</em><i>✦</i><b>Always prototyping</b><i>✦</i><em>Let’s make something</em><i>✦</i></span></div>
+  </div>
+
+  <!-- ─────────── work ─────────── -->
+  <section class="section wrap" id="work" aria-labelledby="work-title">
+    <header class="sec-head" data-reveal>
+      <p class="kicker"><b>01</b> / Selected work</p>
+      <h2 id="work-title">A few things I’ve <em>made.</em></h2>
+      <p class="sec-note">Useful, thoughtful, and “what if we tried this?” Open one to see it running live.</p>
+    </header>
+
+    <ol class="projects" data-reveal>
+      <li class="project is-open">
+        <h3><button class="project-head" type="button" id="p1-head" aria-expanded="true" aria-controls="p1">
+          <span class="num">01</span>
+          <span class="title">Affex Studio</span>
+          <span class="kind">Creative studio · Photography</span>
+          <span class="plus" aria-hidden="true"></span>
+        </button></h3>
+        <div class="project-panel" id="p1" role="region" aria-labelledby="p1-head"><div class="panel-clip"><div class="panel-body">
+          <a class="shot" href="https://affex-studio.vercel.app/" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true" data-cursor="Open ↗" style="--tint:#c9764f">
+            <span class="shot-bar"><i></i><i></i><i></i><span>affex-studio.vercel.app</span></span>
+            <span class="shot-view">
+              <span class="shot-poster">Affex Studio</span>
+              <iframe data-src="https://affex-studio.vercel.app/" title="" tabindex="-1" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
+              <span class="shot-open">Open live site ↗</span>
+            </span>
+          </a>
+          <div class="project-info">
+            <p class="project-desc">A cinematic home for photography and visual storytelling.</p>
+            <ul class="tags" aria-label="Built with"><li>HTML &amp; CSS</li><li>JavaScript</li><li>Studio website</li></ul>
+            <a class="btn primary" href="https://affex-studio.vercel.app/" target="_blank" rel="noopener noreferrer">Visit live site <span class="arr" aria-hidden="true">↗</span><span class="sr"> (opens in a new tab)</span></a>
+          </div>
+        </div></div></div>
+      </li>
+
+      <li class="project">
+        <h3><button class="project-head" type="button" id="p2-head" aria-expanded="false" aria-controls="p2">
+          <span class="num">02</span>
+          <span class="title">Sepione Ceramic</span>
+          <span class="kind">Brand website · Ceramics</span>
+          <span class="plus" aria-hidden="true"></span>
+        </button></h3>
+        <div class="project-panel" id="p2" role="region" aria-labelledby="p2-head"><div class="panel-clip"><div class="panel-body">
+          <a class="shot" href="https://sepeione-ceramic.vercel.app/" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true" data-cursor="Open ↗" style="--tint:#7f9a7a">
+            <span class="shot-bar"><i></i><i></i><i></i><span>sepeione-ceramic.vercel.app</span></span>
+            <span class="shot-view">
+              <span class="shot-poster">Sepione Ceramic</span>
+              <iframe data-src="https://sepeione-ceramic.vercel.app/" title="" tabindex="-1" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
+              <span class="shot-open">Open live site ↗</span>
+            </span>
+          </a>
+          <div class="project-info">
+            <p class="project-desc">A digital showcase for ceramics, textures, and considered spaces.</p>
+            <ul class="tags" aria-label="Built with"><li>Next.js</li><li>React</li><li>Product catalog</li></ul>
+            <a class="btn primary" href="https://sepeione-ceramic.vercel.app/" target="_blank" rel="noopener noreferrer">Visit live site <span class="arr" aria-hidden="true">↗</span><span class="sr"> (opens in a new tab)</span></a>
+          </div>
+        </div></div></div>
+      </li>
+
+      <li class="project">
+        <h3><button class="project-head" type="button" id="p3-head" aria-expanded="false" aria-controls="p3">
+          <span class="num">03</span>
+          <span class="title">Keyboard 3D</span>
+          <span class="kind">Interactive 3D · Product showcase</span>
+          <span class="plus" aria-hidden="true"></span>
+        </button></h3>
+        <div class="project-panel" id="p3" role="region" aria-labelledby="p3-head"><div class="panel-clip"><div class="panel-body">
+          <a class="shot" href="https://keyboard3d.netlify.app/" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true" data-cursor="Open ↗" style="--tint:#8479b8">
+            <span class="shot-bar"><i></i><i></i><i></i><span>keyboard3d.netlify.app</span></span>
+            <span class="shot-view">
+              <span class="shot-poster">Keyboard 3D</span>
+              <iframe data-src="https://keyboard3d.netlify.app/" title="" tabindex="-1" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
+              <span class="shot-open">Open live site ↗</span>
+            </span>
+          </a>
+          <div class="project-info">
+            <p class="project-desc">An interactive keyboard showcase with rotation and an exploded view.</p>
+            <ul class="tags" aria-label="Built with"><li>Three.js</li><li>WebGL</li><li>JavaScript</li></ul>
+            <a class="btn primary" href="https://keyboard3d.netlify.app/" target="_blank" rel="noopener noreferrer">Visit live site <span class="arr" aria-hidden="true">↗</span><span class="sr"> (opens in a new tab)</span></a>
+          </div>
+        </div></div></div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ─────────── about ─────────── -->
+  <section class="section wrap" id="about" aria-labelledby="about-title">
+    <header class="sec-head" data-reveal>
+      <p class="kicker"><b>02</b> / The human behind the code</p>
+      <h2 id="about-title">Curiosity is my favorite <em>tool.</em></h2>
+    </header>
+    <div class="about-grid">
+      <div class="about-copy" data-reveal>
+        <p class="big">I like making things that feel good to use. For me, development is equal parts solving a puzzle and filling a blank page.</p>
+        <p>My sweet spot? Where clean code meets a thoughtful interface. I’m always learning, experimenting, and finding a better way to bring an idea to life.</p>
+      </div>
+      <aside class="card" data-reveal aria-label="In short">
+        <p class="card-label">In short</p>
+        <ul class="traits">
+          <li><span>A</span>Developer</li>
+          <li><span>B</span>Thinker</li>
+          <li><span>C</span>Lifelong tinkerer</li>
+        </ul>
+        <p class="quote">Always a work in progress. And that’s the fun part.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ─────────── toolbox ─────────── -->
+  <section class="section wrap" id="toolbox" aria-labelledby="toolbox-title">
+    <header class="sec-head" data-reveal>
+      <p class="kicker"><b>03</b> / My toolbox</p>
+      <h2 id="toolbox-title">Different tools. Same <em>curiosity.</em></h2>
+    </header>
+    <ul class="tools" data-reveal>
+      <li><span class="tool-n">01</span><b>React</b><small>Interactive interfaces</small></li>
+      <li><span class="tool-n">02</span><b>JavaScript</b><small>Ideas into interactions</small></li>
+      <li><span class="tool-n">03</span><b>TypeScript</b><small>A little more confidence</small></li>
+      <li><span class="tool-n">04</span><b>Node.js</b><small>Behind the scenes</small></li>
+      <li><span class="tool-n">05</span><b>HTML &amp; CSS</b><small>The trusty essentials</small></li>
+      <li><span class="tool-n">06</span><b>Figma</b><small>Room to explore</small></li>
+    </ul>
+  </section>
+
+  <!-- ─────────── contact ─────────── -->
+  <section class="contact" id="contact" aria-labelledby="contact-title">
+    <canvas class="contours" data-contours aria-hidden="true"></canvas>
+    <div class="contact-inner wrap" data-reveal>
+      <p class="kicker"><b>04</b> / Say hello · last stop</p>
+      <h2 id="contact-title">Got an idea?<br>Let’s make it <em>real.</em></h2>
+      <p class="lede">A project, a possibility, or just a good conversation. I’d love to hear what you’re thinking.</p>
+      <div class="actions">
+        <a class="btn primary big" href="mailto:hello@example.com?subject=Hello%20Rudra">Write to me <span class="arr" aria-hidden="true">↗</span></a>
+        <button class="btn ghost big copy" type="button" data-copy="hello@example.com">
+          <span class="copy-text">hello@example.com</span><span class="copy-tag">Copy</span>
+        </button>
+      </div>
+      <p class="copy-status" role="status" aria-live="polite"></p>
+    </div>
+  </section>
+</main>
+
+<footer class="foot wrap">
+  <a class="logo" href="#top" aria-label="Rudra, back to top">rudra<span>.</span></a>
+  <span class="foot-note">Made with intention.</span>
+  <div class="foot-actions">
+    <button id="motion-toggle" class="link-btn" type="button" aria-pressed="false">Pause motion</button>
+    <a class="link-btn" href="#top">Back to top ↑</a>
+  </div>
+</footer>
+<div class="outro" aria-hidden="true"><div class="outro-word"><span>r</span><span>u</span><span>d</span><span>r</span><span>a</span><span class="dot">.</span></div></div>
+
+<script src="app.js"></script>
+</body>
+</html>
